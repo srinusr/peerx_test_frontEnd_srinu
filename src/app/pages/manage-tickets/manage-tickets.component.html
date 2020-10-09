@@ -1,0 +1,38 @@
+<div class="container" >
+   
+    <div class="col-lg-10 col-md-10 float-left" style="margin-top:5%;">
+        <div class="col-lg-6 col-md-6 float-left">
+        
+            <ul class="list-inline">
+                 <li style="color:#c2bebe;font-weight:bold;" class="list-inline-item ">Status:</li>
+                 <li class="list-inline-item colo"><a>open({{open}})</a></li>
+                 <li class="list-inline-item colo"><a>Closed({{Closed}})</a></li>
+                 <li class="list-inline-item colo"><a>On Hold({{hold}})</a></li>
+             </ul>
+         </div>
+         <div class="col-lg-6 col-md-6  float-left ">
+             
+             <ul class="list-inline">
+                  <li style="color:#c2bebe;font-weight:bold;" class="list-inline-item ml-3">CreatedBy:</li>
+                  <li class="list-inline-item colo"><a>You</a></li>
+                  <li class="list-inline-item colo"><a>Team</a></li>
+                  <li class="list-inline-item colo"><a>My Cc'd Tickets</a></li>
+              </ul>
+          </div>
+    </div>
+    <div class="col-lg-10 col-md-10 float-left border" style="margin-top: 20px;" *ngFor="let tic of data">
+        <div>
+            <ul class="list-inline">
+                <li style="color:#0275d8;font-weight:bold;" class="list-inline-item ">test ticket - ignore:</li>
+                <li style="color:#0275d8;font-weight:bold;" class="list-inline-item float-right">{{tic.ticketNumber}}</li>
+            </ul>
+        </div>
+        <div>
+            <button class="border" style="border-radius: 50%;background:#f2f2f2;padding:0px;"><small>{{tic.contact.firstName[0]}}{{tic.contact.lastName[0]}}</small></button> . <span class="fa fa-globe"></span> . <a style="color:black !important;font-size:15px;" class=""><small>{{tic.subject}}</small></a> . <a style="color:black !important" class=""><small>{{tic.createdTime | timeAgo}}</small></a>
+        </div>
+    </div>
+</div>
+
+
+
+`

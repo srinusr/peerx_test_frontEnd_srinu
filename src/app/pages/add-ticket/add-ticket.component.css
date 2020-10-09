@@ -1,0 +1,23 @@
+.file-field.big .file-path-wrapper {
+    height: 3.2rem; }
+    .file-field.big .file-path-wrapper .file-path {
+    height: 3rem; }
+
+    .e-richtexteditor .e-rte-content .e-content, .e-richtexteditor .e-source-content .e-content {
+        height: 400px !important;
+    }
+
+
+    #pic{
+        display: none;
+    }
+          
+    .newbtn{
+        cursor: pointer;
+    }
+    #blah{
+     width:100px;
+     height:100px;
+
+   }
+

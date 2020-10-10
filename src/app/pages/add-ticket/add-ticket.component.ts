@@ -32,6 +32,7 @@ export class AddTicketComponent implements OnInit {
       email : ["",Validators.required],
       phone : ["",Validators.required],
       priority : ["",Validators.required],
+      file:null,
       description:""
     })
   }

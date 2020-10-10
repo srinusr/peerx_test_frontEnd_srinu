@@ -29,10 +29,18 @@ export class CommonHttpService {
   }
 
   addnewApi(data: any): Observable<any> {
+    console.log("init",data);
+    
     // const formData: FormData = new FormData();
-    // formData.append('fileKey', data.file, data.file.name);
-    // data['file'] = formData;
-    console.log("post data", data);
+    // formData.append('fileKey', uploadFile, uploadFile.name);
+    // data['file']:formData = formData;
+    // console.log("post data", data);
+    let fd = new FormData();
+      for(let key of this.getKeys(data)){
+        fd.append(key,data[key])
+      }
+      console.log("data",fd,data);
+      
     return this.httpClient.post<any>(`${this.PHP_API_SERVER}/api/create.php`, data);
   }
 

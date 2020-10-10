@@ -32,21 +32,15 @@ export class ManageTicketsComponent implements OnInit {
   }
 
 getdat(data:any){
-  console.log("data",Object.keys(data));
   data.forEach(obj => {
-    console.log("kasldfj",Object.keys(obj),obj.status);
     
     if(obj.status == 'Open'){
-      
       this.open++;
-      
     }
     if(obj.status == 'Closed'){
-
       this.closed++;
     }
     if(obj.status == 'Hold'){
-
       this.hold++;
     }
   });

@@ -44,7 +44,6 @@ export class AddTicketComponent implements OnInit {
     this.ticketform.patchValue({file:files[0]});
   }
   uploadNewTicket(){
-    console.log("alsdkfjasdf",this.ticketform.value);
     
       this.ticketform.patchValue({description:this.rich['angularValue'].replace( /(<([^>]+)>)/ig, '')});
     

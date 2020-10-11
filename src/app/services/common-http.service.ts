@@ -29,18 +29,7 @@ export class CommonHttpService {
   }
 
   addnewApi(data: any): Observable<any> {
-    
-    // const formData: FormData = new FormData();
-    // formData.append('fileKey', uploadFile, uploadFile.name);
-    // data['file']:formData = formData;
-    // console.log("post data", data);
-    let fd = new FormData();
-      for(let key of this.getKeys(data)){
-        fd.append(key,data[key])
-      }
-      console.log("before sending form data",fd,data);
-      
-    return this.httpClient.post<any>(`${this.PHP_API_SERVER}/api/create.php`, data);
+    return this.httpClient.post<any>('https://support.peerxp.com/portal/api/composetickets?portalId=edbsnec70096b026a31a62716b155634dd02c4f4cd043b44b6ba9cda7206a8b49cd26', data);
   }
 
   getTicketList():Observable<any> {
@@ -62,6 +51,16 @@ export class CommonHttpService {
     // return dat;
 
   }
+  postFile(fileToUpload: File): Observable<any> {
+    console.log("came into ",fileToUpload);
+    
+    const formData: FormData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+    let some:any =  this.httpClient.post('https://support.peerxp.com/portal/api/uploads?portalId=edbsnec70096b026a31a62716b155634dd02c4f4cd043b44b6ba9cda7206a8b49cd26', formData);
+    console.log("some",some);
+    return some;
+    
+}
 
   login(userInfo: any): Observable<any> {
     let data = {

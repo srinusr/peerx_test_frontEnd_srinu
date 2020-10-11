@@ -59,7 +59,7 @@
                        (change)="handleFileInput($event.target.files)">
       </div>
       <div class="form-group col-6">
-        <button type="submit" class="btn btn-primary" >Submit</button>
+        <button type="submit" class="btn btn-primary" disabled="!ticketform.valid">Submit</button>
         <button class="btn btn-danger ml-2 " (click)="discard()">Discard</button>
 	    </div>
   </form>

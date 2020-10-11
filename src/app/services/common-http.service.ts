@@ -29,7 +29,7 @@ export class CommonHttpService {
   }
 
   addnewApi(data: any): Observable<any> {
-    return this.httpClient.post<any>('https://support.peerxp.com/portal/api/composetickets?portalId=edbsnec70096b026a31a62716b155634dd02c4f4cd043b44b6ba9cda7206a8b49cd26', data);
+    return this.httpClient.post<any>(`${this.PHP_API_SERVER}/api/create.php`, data);
   }
 
   getTicketList():Observable<any> {
@@ -56,7 +56,7 @@ export class CommonHttpService {
     
     const formData: FormData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
-    let some:any =  this.httpClient.post('https://support.peerxp.com/portal/api/uploads?portalId=edbsnec70096b026a31a62716b155634dd02c4f4cd043b44b6ba9cda7206a8b49cd26', formData);
+    let some:any =  this.httpClient.post('https://desk.zoho.in/api/v1/tickets', formData);
     console.log("some",some);
     return some;
     

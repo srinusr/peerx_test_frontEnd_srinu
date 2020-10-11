@@ -55,13 +55,12 @@ export class AddTicketComponent implements OnInit {
   uploadFileToActivity(file) {
     
     this.httpSrv.postFile(file).subscribe(data => {
-      // do something, if upload success
       this.img_id.push(data.id);
         console.log("imagaurl",this.img_id);
       // this.onSubmit();
       
       }, error => {
-        console.log("error while file upload",error);
+        // console.log("error while file upload",error);
       });
   }
 
@@ -70,20 +69,23 @@ export class AddTicketComponent implements OnInit {
     
       // this.ticketform.patchValue({description:this.rich['angularValue'].replace( /(<([^>]+)>)/ig, '')});
       this.ticketform.patchValue({description:this.rich['angularValue']});
-      let postData:any = {};
+      let postData:any ={};
+      
       postData.category = this.ticketform.get('category').value;
-      postData.cf =  {cf_pwslab_project_url: this.ticketform.get('cf').value};
-      postData.contactName =  this.ticketform.get('contactName').value;
+      postData.cf =  {"cf_pwslab_project_url": this.ticketform.get('cf').value};
+      // postData.contactName =  this.ticketform.get('contactName').value;
       postData.departmentId =  this.ticketform.get('departmentId').value;
       postData.description =  this.ticketform.get('description').value;
       postData.email =  this.ticketform.get('email').value;
       postData.phone =  this.ticketform.get('phone').value;
       postData.priority =  this.ticketform.get('priority').value;
       postData.subject =  this.ticketform.get('subject').value;
-      postData.uploads =  this.img_id;
+      postData.contact = {"email": this.ticketform.get('email').value};
+     
+      
+
     
     this.httpSrv.addnewApi(postData).subscribe(data=>{
-      console.log("data new tc",data);
       
       this.toastr.success("New Tiicket Added!", "Success!");
       this.router.navigate(['/managetc']);

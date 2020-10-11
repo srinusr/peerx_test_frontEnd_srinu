@@ -1,5 +1,5 @@
 <div class="container align-center addtc">
-<form [formGroup]="ticketform" (ngSubmit)="uploadFileToActivity()" class="md-form" style="width: 60%;margin-left:20%;margin-top:5%;" enctype="multipart/form-data">
+<form [formGroup]="ticketform" (ngSubmit)="uploadNewTicket()" class="md-form" style="width: 60%;margin-left:20%;margin-top:5%;" enctype="multipart/form-data">
   <div class="form-group">
     <label for="inputState">Department</label>
       <select id="inputState" class="form-control" formControlName="departmentId">
@@ -56,10 +56,17 @@
       <div class="form-group">
           <input type="file"
                        id="file"
-                       (change)="handleFileInput($event.target.files)">
+                       multiple
+                       (change)="handleFileInput($event)">
+      </div>
+      <div class="col-lg-12 col-md-12 float-left">
+        <ul class="overflow-hidden col-lg-4 col-md-4 float-left " *ngFor="let file of selectedFiles">
+          <li class="border border-success list-group-item overflow-hidden">{{ file.name }}</li>
+        </ul>
       </div>
       <div class="form-group col-6">
-        <button type="submit" class="btn btn-primary" disabled="!ticketform.valid">Submit</button>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!ticketform.valid">Submit</button>
         <button class="btn btn-danger ml-2 " (click)="discard()">Discard</button>
 	    </div>
   </form>

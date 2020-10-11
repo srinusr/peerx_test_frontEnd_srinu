@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {FormControl,FormGroup,FormBuilder, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {CommonHttpService} from '../../services/common-http.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -17,8 +18,11 @@ import {CommonHttpService} from '../../services/common-http.service';
 })
 export class AddTicketComponent implements OnInit {
   ticketform:FormGroup;
-  img_id:any;
+  img_id:any = [];
   @ViewChild('richtxt', { static: true }) rich: ElementRef;
+  selectedFiles: FileList;
+  imgPath:any;
+  fileIfo:Observable<any>;
   
   constructor(private fb:FormBuilder,private toastr: ToastrService,private httpSrv:CommonHttpService,private router:Router) { }
 
@@ -33,8 +37,7 @@ export class AddTicketComponent implements OnInit {
       email : ["",Validators.required],
       phone : ["",Validators.required],
       priority : ["",Validators.required],
-      file:null,
-      description:""
+      description:[""]
     })
   }
 
@@ -42,16 +45,19 @@ export class AddTicketComponent implements OnInit {
   get () { return this.ticketform.controls; }
 
 
-  handleFileInput(files: FileList) {
-    this.ticketform.patchValue({file:files[0]});
-  }
-  uploadFileToActivity() {
+  handleFileInput(event) {
+    this.selectedFiles = event.target.files;
     
-    this.httpSrv.postFile(this.ticketform.get('file').value).subscribe(data => {
+    for (let i = 0; i < this.selectedFiles.length; i++) {
+      this.uploadFileToActivity(this.selectedFiles[i]);
+    }
+  }
+  uploadFileToActivity(file) {
+    
+    this.httpSrv.postFile(file).subscribe(data => {
       // do something, if upload success
-      console.log("imagaurl",data.id);
-      this.img_id = data.id;
-      this.uploadNewTicket();
+      this.img_id.push(data.id);
+        console.log("imagaurl",this.img_id);
       // this.onSubmit();
       
       }, error => {
@@ -62,7 +68,8 @@ export class AddTicketComponent implements OnInit {
 
   uploadNewTicket(){
     
-      this.ticketform.patchValue({description:this.rich['angularValue'].replace( /(<([^>]+)>)/ig, '')});
+      // this.ticketform.patchValue({description:this.rich['angularValue'].replace( /(<([^>]+)>)/ig, '')});
+      this.ticketform.patchValue({description:this.rich['angularValue']});
       let postData:any = {};
       postData.category = this.ticketform.get('category').value;
       postData.cf =  {cf_pwslab_project_url: this.ticketform.get('cf').value};
@@ -73,7 +80,7 @@ export class AddTicketComponent implements OnInit {
       postData.phone =  this.ticketform.get('phone').value;
       postData.priority =  this.ticketform.get('priority').value;
       postData.subject =  this.ticketform.get('subject').value;
-      postData.uploads =  [this.img_id];
+      postData.uploads =  this.img_id;
     
     this.httpSrv.addnewApi(postData).subscribe(data=>{
       console.log("data new tc",data);
